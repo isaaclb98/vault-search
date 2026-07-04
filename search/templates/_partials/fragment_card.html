@@ -1,0 +1,22 @@
+{# fragment_card.html — draggable fragment card.
+
+   Markup contract (per IMPLEMENTATION_DESIGN.md §"Fragment card"):
+     <div class="fragment-card" draggable="true"
+          data-fragment-ref="<ref>">
+       <div class="fragment-card__type">quotation</div>
+       <div class="fragment-card__preview">first 200 chars...</div>
+       <div class="fragment-card__source">path/to/file.md</div>
+     </div>
+
+   canvas.js sets dataTransfer.setData('text/fragment-ref', ref) on
+   dragstart and reads it on drop.
+#}
+<div
+  class="fragment-card"
+  draggable="true"
+  data-fragment-ref="{{ id }}"
+>
+  <div class="fragment-card__type fragment-card__type--{{ type }}">{{ type }}</div>
+  <div class="fragment-card__preview">{{ preview }}</div>
+  <div class="fragment-card__source">{{ id }}</div>
+</div>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}vault-search{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/site.css?v={{ static_assets_version }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">vault-search</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a class="site-nav-link" href="/">chat + canvas</a>
+      <a class="site-nav-link" href="/api/canvas/list">canvases (JSON)</a>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <small>vault-search v0 — fragments only</small>
+  </footer>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

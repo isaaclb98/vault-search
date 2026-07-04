@@ -1,0 +1,45 @@
+[project]
+name = "vault-search"
+version = "0.1.0"
+description = "Web app for retrieving and arranging fragments from an Obsidian vault via an LLM-mediated chat panel and a drag-drop canvas."
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Isaac" }]
+
+dependencies = [
+    # Search side (FastAPI app)
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
+    "jinja2>=3.1",
+    "python-multipart>=0.0.9",
+    "qdrant-client>=1.10",
+    # .env file loading (used by both indexer + search)
+    "python-dotenv>=1.0",
+    # Ollama OpenAI-compatible HTTP client. We hit /v1/chat/completions
+    # and /v1/embeddings directly — no separate openai package needed.
+    "httpx>=0.27",
+    "pydantic>=2.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "anyio>=4",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["search", "indexer"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+]

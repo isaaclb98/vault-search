@@ -1,0 +1,25 @@
+{# chat_message.html — single chat turn (assistant side).
+
+   Used by chat.js to render fragments returned by /api/chat. Server-side
+   inclusion (Jinja include) keeps the markup identical between the
+   first SSR render and any later JS-driven append.
+#}
+<div class="chat-message chat-message--assistant">
+  {% if reply %}
+    <p class="chat-message__text">{{ reply }}</p>
+  {% endif %}
+  {% if fragments %}
+    <ul class="fragment-list" aria-label="Fragments surfaced by the LLM">
+      {% for frag in fragments %}
+        <li>
+          {% include "_partials/fragment_card.html" %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if tool_calls %}
+    <p class="chat-message__meta">
+      {{ tool_calls }} tool call{{ '' if tool_calls == 1 else 's' }}
+    </p>
+  {% endif %}
+</div>

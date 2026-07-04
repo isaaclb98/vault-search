@@ -1,0 +1,29 @@
+{# canvas_item.html — single canvas item.
+
+   Renders one dropped fragment. Draggable within the canvas for
+   reorder; per-item delete button. The data-fragment-ref doubles
+   as the Qdrant point id used by /api/fragment/<ref>.
+#}
+<article
+  class="canvas-item"
+  draggable="true"
+  data-fragment-ref="{{ ref }}"
+  data-order="{{ order }}"
+>
+  <header class="canvas-item__header">
+    <span class="canvas-item__type canvas-item__type--{{ type }}">{{ type }}</span>
+    <span class="canvas-item__source">{{ ref }}</span>
+    <button
+      type="button"
+      class="canvas-item__delete"
+      aria-label="Remove from canvas"
+      title="Remove from canvas"
+    >&times;</button>
+  </header>
+  <div class="canvas-item__body">
+    {{ body }}
+  </div>
+  {% if annotation %}
+    <p class="canvas-item__annotation">{{ annotation }}</p>
+  {% endif %}
+</article>

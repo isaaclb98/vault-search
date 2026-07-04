@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}chat + canvas — vault-search{% endblock %}
+
+{% block content %}
+<div class="layout">
+  {# --- Chat panel --------------------------------------------------- #}
+  <section class="chat-panel" aria-label="Chat panel">
+    <h1 class="chat-panel__heading">Find fragments</h1>
+    <form class="chat-form" method="post" action="/api/chat" id="chat-form">
+      <label class="chat-form__label" for="chat-input">Ask for fragments</label>
+      <textarea
+        id="chat-input"
+        name="message"
+        rows="3"
+        placeholder="e.g. find me Calasso on ritual sacrifice"
+        required
+      ></textarea>
+      <div class="chat-form__row">
+        <button type="submit" class="chat-form__submit">Send</button>
+        <span class="chat-form__hint">
+          LLM calls <code>query_fragments</code> against the vault.
+        </span>
+      </div>
+    </form>
+
+    <div class="chat-messages" id="chat-messages" aria-live="polite">
+      <p class="chat-empty">No messages yet. Ask for fragments above.</p>
+    </div>
+  </section>
+
+  {# --- Canvas ------------------------------------------------------- #}
+  <section class="canvas-panel" aria-label="Canvas">
+    <header class="canvas-panel__header">
+      <h2 class="canvas-panel__heading">Canvas</h2>
+      <div class="canvas-panel__actions">
+        <input
+          type="text"
+          id="canvas-name"
+          class="canvas-name"
+          placeholder="Canvas name…"
+          aria-label="Canvas name"
+        >
+        <button type="button" id="canvas-save" class="canvas-save">Save</button>
+        <button type="button" id="canvas-export" class="canvas-export">Export</button>
+        <button type="button" id="canvas-clear" class="canvas-clear">Clear</button>
+      </div>
+    </header>
+
+    <div
+      class="canvas-surface"
+      id="canvas-surface"
+      aria-label="Drop fragments here"
+    >
+      <p class="canvas-empty">Drag fragment cards from the chat panel here.</p>
+    </div>
+
+    <p class="canvas-status" id="canvas-status" role="status" aria-live="polite"></p>
+  </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/chat.js?v={{ static_assets_version }}" defer></script>
+<script src="/static/js/canvas.js?v={{ static_assets_version }}" defer></script>
+{% endblock %}
